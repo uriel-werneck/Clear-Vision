@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
-</head>
-    <body>
-        <h1>Results</h1>
+{% extends "classifier/base.html" %}
 
-        <div class="results-grid">
-            {% for result in results %}
-                {% if result.image %}
-                    <div class="image-box">
-                        <img src="{{ result.image.url }}" alt="">
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+{% block title %}Results{% endblock %}
 
-    </body>
-</html>
+{% block content %}
+<h1>Results</h1>
+
+<div class="results-grid">
+    {% for result in results %}
+        {% if result.image %}
+            <a href="{% url 'filtered_result' result.id %}">
+                <div class="image-box">
+                    <img src="{{ result.image.url }}" alt="">
+                </div>
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

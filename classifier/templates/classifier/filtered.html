@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
-</head>
-    <body>
-        <h1>Filtered Results</h1>
+{% extends "classifier/base.html" %}
 
-        <div class="results-grid">
-            {% if result.image %}
-                <div class="image-box">
-                    <img src="{{ result.image.url }}" alt="">
-                </div>
-            {% endif %}
+{% block title %}Clear Vision{% endblock %}
+
+{% block content %}
+<h1>Filtered Results</h1>
+
+<div class="results-grid">
+    {% if result.image %}
+        <div class="image-box">
+            <img src="{{ result.image.url }}" alt="">
         </div>
-    </body>
-</html>
+    {% endif %}
+</div>
+{% endblock %}
