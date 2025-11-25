@@ -1,23 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS file (optional, doesn’t break anything if empty) -->
+    <link rel="stylesheet" href="{% static 'classifier/css/styles.css' %}">
+
+    <!-- JS file (optional, doesn’t break anything if empty) -->
+    <script src="{% static 'classifier/js/main.js' %}" defer></script>
+
     <title>{% block title %}{% endblock %}</title>
 </head>
-    <body>
+<body>
 
-        <!-- Top navigation bar -->
-        <nav>
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'results' %}">Results</a>
-        </nav>
+    <!-- Top navigation bar -->
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'results' %}">Results</a>
+    </nav>
 
-        <hr>
+    <!-- Page content -->
+    {% block content %}
+    {% endblock %}
 
-        <!-- Page content -->
-        {% block content %}
-        {% endblock %}
-
-    </body>
+</body>
 </html>

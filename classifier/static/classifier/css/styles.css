@@ -1,0 +1,284 @@
+/* Reset a bit */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    padding-top: 60px;   /* prevents content from appearing under navbar */
+}
+
+/* Navbar styling */
+nav {
+    background-color: #f2f2f2;
+    padding: 10px 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+
+    position: fixed;   /* makes it stick */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;     /* makes sure it stays above everything */
+}
+
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    color: #0077ff;
+    text-decoration: underline;
+}
+
+/* Center everything horizontally and give a gentle push down */
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 70px;     /* <-- pushes down without causing overflow */
+}
+
+/* Upload box */
+.upload-box {
+    width: 580px;
+    height: 430px;
+    border: 3px dashed #666;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    text-align: center;
+    color: #555;
+    background-color: #fafafa;
+
+    transition: 0.2s;
+    margin-bottom: 45px;
+}
+
+.upload-box:hover {
+    background-color: #f0f0f0;
+    border-color: #0077ff;
+}
+
+/* Placeholder text */
+#placeholder-text {
+    font-size: 24px;
+    opacity: 0.8;
+}
+
+/* Preview image */
+.image-preview {
+    display: none;
+    width: 96%;
+    height: 96%;
+    object-fit: contain;
+}
+
+/* Buttons */
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.btn {
+    padding: 20px 38px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.upload-btn {
+    background-color: #0077ff;
+    color: white;
+}
+
+.clear-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+/* --- Results Page Grid Layout --- */
+
+.results-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;  /* adjust spacing from navbar */
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+    width: 90%;
+    max-width: 1300px;
+}
+
+.result-item {
+    text-decoration: none;
+}
+
+.image-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;  /* perfect square boxes */
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    background-color: #fafafa;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: 0.25s;
+}
+
+.image-box:hover {
+    border-color: #0077ff;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* fills the square frame nicely */
+}
+
+/* =========================================================
+   FILTERED PAGE — two frames side-by-side
+   ========================================================= */
+
+.filtered-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+
+    width: 100%;
+    padding-top: 100px; /* space for navbar */
+}
+
+/* Shared frame styling */
+.frame {
+    width: min(520px, 45vw);
+    height: min(520px, 45vw);
+
+    background-color: #fafafa;
+    border: 3px solid #ddd;
+    border-radius: 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Image frame */
+.image-frame {
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.filtered-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Info frame */
+.info-frame {
+    justify-content: flex-start;
+}
+
+/* Scrollable info text */
+.info-content {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.info-content h2 {
+    margin-top: 0;
+    margin-bottom: 14px;
+    font-size: 28px;
+    color: #333;
+}
+
+.info-content p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+/* =========================================================
+   BUTTONS BELOW BOTH FRAMES
+   ========================================================= */
+
+.filtered-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.filtered-buttons .btn {
+    padding: 18px 38px;
+    font-size: 22px;
+    border-radius: 14px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.download-btn {
+    background-color: #0077ff;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.filtered-buttons .btn:hover {
+    opacity: 0.85;
+}
+
+/* Responsive: stack vertically */
+@media (max-width: 1200px) {
+    .filtered-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .frame {
+        width: 90%;
+        max-width: 600px;
+        height: auto;
+        min-height: 400px;
+    }
+
+    .image-frame {
+        height: auto;
+    }
+}

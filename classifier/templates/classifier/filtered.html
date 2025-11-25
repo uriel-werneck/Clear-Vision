@@ -3,13 +3,45 @@
 {% block title %}Clear Vision{% endblock %}
 
 {% block content %}
-<h1>Filtered Results</h1>
 
-<div class="results-grid">
-    {% if result.image %}
-        <div class="image-box">
-            <img src="{{ result.image.url }}" alt="">
+<div class="filtered-container">
+
+    <!-- Left frame: Image -->
+    <div class="frame image-frame">
+        {% if result.image %}
+            <img src="{{ result.image.url }}" alt="Detected image" class="filtered-image">
+        {% endif %}
+    </div>
+
+    <!-- Right frame: Detection info -->
+    <div class="frame info-frame">
+        <div class="info-content">
+            <h2>Detection Results</h2>
+
+            {% if result.label %}
+                <p><strong>Label:</strong> {{ result.label }}</p>
+            {% endif %}
+
+            {% if result.confidence %}
+                <p><strong>Confidence:</strong> {{ result.confidence }}%</p>
+            {% endif %}
+
+            {% if result.extra_info %}
+                <p><strong>Details:</strong> {{ result.extra_info }}</p>
+            {% endif %}
         </div>
-    {% endif %}
+    </div>
+
 </div>
+
+<!-- Buttons centered below frames -->
+<div class="filtered-buttons">
+    <a href="{{ result.image.url }}" download class="btn download-btn">Download</a>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn delete-btn">Delete</button>
+    </form>
+</div>
+
 {% endblock %}
