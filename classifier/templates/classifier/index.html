@@ -1,55 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clear-Vision</title>
-</head>
-<body>
-    <h1>Homepage</h1>
+{% extends "classifier/base.html" %}
 
-    {% if classification %}
-        <h2>Last Uploaded Image:</h2>
-        <img src="{{ classification.image.url }}" alt="Uploaded Image" style="width:200px; margin-bottom:20px;">
-        <p>Classification Result: {{ classification.result }}</p>
-    {% endif %}
+{% block title %}Clear Vision{% endblock %}
 
-    <form method="POST" action="{% url 'home' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <img id="preview" src="" alt="" style="display:none; width:200px; margin-bottom:20px;">
+{% block content %}
+<h1>Homepage</h1>
 
-        <!-- Input to choose image -->
-        <input type="file" id="imageInput" name="image" accept="image/*">
+<form method="POST" action="{% url 'home' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <img id="preview" src="" alt="" style="display:none; width:200px; margin-bottom:20px;">
 
-        <br><br>
+    <!-- Input to choose image -->
+    <input type="file" id="imageInput" name="image" accept="image/*">
 
-        <!-- Submit button -->
-        <button type="submit">Upload</button>
+    <br><br>
 
-        <!-- Clear button -->
-        <button type="button" id="clearBtn">Clear</button>
-    </form>
+    <!-- Submit button -->
+    <button type="submit">Upload</button>
 
-    <script>
-        const imageInput = document.getElementById('imageInput');
-        const preview = document.getElementById('preview');
-        const clearBtn = document.getElementById('clearBtn');
+    <!-- Clear button -->
+    <button type="button" id="clearBtn">Clear</button>
+</form>
 
-        // Show preview when image is selected
-        imageInput.addEventListener('change', function () {
-            const file = this.files[0];
-            if (file) {
-                preview.src = URL.createObjectURL(file);
-                preview.style.display = 'block';
-            }
-        });
+<script>
+    const imageInput = document.getElementById('imageInput');
+    const preview = document.getElementById('preview');
+    const clearBtn = document.getElementById('clearBtn');
 
-        // Clear button logic
-        clearBtn.addEventListener('click', function () {
-            imageInput.value = "";
-            preview.src = "";
-            preview.style.display = "none";
-        });
-    </script>
-</body>
-</html>
+    // Show preview when image is selected
+    imageInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        }
+    });
+
+    // Clear button logic
+    clearBtn.addEventListener('click', function () {
+        imageInput.value = "";
+        preview.src = "";
+        preview.style.display = "none";
+    });
+</script>
+{% endblock %} 
