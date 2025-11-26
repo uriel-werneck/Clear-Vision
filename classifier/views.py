@@ -14,7 +14,7 @@ def home(request):
     return render(request, 'classifier/index.html')
 
 def get_results(request):
-    images = Classification.objects.all()
+    images = Classification.objects.all().order_by('-id')
     context = {'results': images}
     return render(request, 'classifier/results.html', context)
 
