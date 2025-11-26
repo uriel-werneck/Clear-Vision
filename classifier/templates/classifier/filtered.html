@@ -38,7 +38,7 @@
 <div class="filtered-buttons">
     <a href="{{ result.image.url }}" download class="btn download-btn">Download</a>
 
-    <form action="" method="POST">
+    <form action="{% url 'delete_image' result.id %}" method="POST">
         {% csrf_token %}
         <button type="submit" class="btn delete-btn">Delete</button>
     </form>
