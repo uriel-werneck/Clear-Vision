@@ -10,7 +10,7 @@ def home(request):
             classification = Classification.objects.create(image=image, result=result)
             classification.save()
             context = {'classification': classification}
-            return render(request, 'classifier/index.html', context)
+            return redirect('filtered_result', pk=classification.id)
     return render(request, 'classifier/index.html')
 
 def get_results(request):
