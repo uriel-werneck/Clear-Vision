@@ -6,6 +6,7 @@ from skimage import color
 import PIL
 import os
 from PIL import Image, ImageOps
+from django.conf import settings
 
 yolo_model = YOLO(os.path.join('classifier', 'models','Classificator_YOLOv8n_Refined (16 epochs).pt'))
 
@@ -83,8 +84,8 @@ def crack_classification(django_file: InMemoryUploadedFile) -> str:
     """
     Makes a classification prediction for cracked/uncracked eggs.
     """
-    if not os.path.exists(os.path.join('media', 'results')):
-        os.makedirs(os.path.join('media', 'results'))
+    results_folder = os.path.join(settings.MEDIA_ROOT, 'results')
+    os.makedirs(results_folder, exist_ok=True)
     
     pil_image = Image.open(django_file)
     pil_image = ImageOps.exif_transpose(pil_image)
@@ -100,9 +101,10 @@ def crack_classification(django_file: InMemoryUploadedFile) -> str:
     result_img_bgr = yolo_result.plot()
     result_img_rgb = PIL.Image.fromarray(cv.cvtColor(result_img_bgr, cv.COLOR_BGR2RGB))
 
-    destination_path = os.path.join('media', 'results', f'result_{django_file.name}')
-    result_img_rgb.save(destination_path)
+    filename = f'result_{django_file.name}'
+    full_path = os.path.join(results_folder, filename)
+    result_img_rgb.save(full_path)
 
-    return destination_path
+    return f'results/{filename}'
 
 
