@@ -1,13 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Classification
+from .utils import crack_classification
 
 # Create your views here.
 def home(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
         if image is not None:
-            result = 'Sample Result'
-            classification = Classification.objects.create(image=image, result=result)
+            original_image = image
+            result_image = crack_classification(original_image)
+            description = 'Sample Result'
+            classification = Classification.objects.create(
+                original_image=original_image,
+                result_image=result_image,
+                description=description
+            )
             classification.save()
             context = {'classification': classification}
             return redirect('filtered_result', pk=classification.id)
