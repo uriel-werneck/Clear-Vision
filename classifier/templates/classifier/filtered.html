@@ -18,16 +18,12 @@
         <div class="info-content">
             <h2>Detection Results</h2>
 
-            {% if result.label %}
-                <p><strong>Label:</strong> {{ result.label }}</p>
-            {% endif %}
-
-            {% if result.confidence %}
-                <p><strong>Confidence:</strong> {{ result.confidence }}%</p>
-            {% endif %}
-
-            {% if result.extra_info %}
-                <p><strong>Details:</strong> {{ result.extra_info }}</p>
+            {% if result.cracked_confidence > result.uncracked_confidence %}
+                <p><strong>Label:</strong> Cracked</p>
+                <p><strong>Confidence:</strong> {{ result.cracked_confidence|floatformat:2 }}%</p>
+            {% else %}
+                <p><strong>Label:</strong> Uncracked</p>
+                <p><strong>Confidence:</strong> {{ result.uncracked_confidence|floatformat:2 }}%</p>
             {% endif %}
         </div>
     </div>
