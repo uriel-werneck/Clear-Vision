@@ -8,8 +8,8 @@
 
     <!-- Left frame: Image -->
     <div class="frame image-frame">
-        {% if result.image %}
-            <img src="{{ result.image.url }}" alt="Detected image" class="filtered-image">
+        {% if result.original_image %}
+            <img src="{{ result.original_image.url }}" alt="Detected image" class="filtered-image">
         {% endif %}
     </div>
 
@@ -18,16 +18,12 @@
         <div class="info-content">
             <h2>Detection Results</h2>
 
-            {% if result.label %}
-                <p><strong>Label:</strong> {{ result.label }}</p>
-            {% endif %}
-
-            {% if result.confidence %}
-                <p><strong>Confidence:</strong> {{ result.confidence }}%</p>
-            {% endif %}
-
-            {% if result.extra_info %}
-                <p><strong>Details:</strong> {{ result.extra_info }}</p>
+            {% if result.cracked_confidence > result.uncracked_confidence %}
+                <p><strong>Label:</strong> Cracked</p>
+                <p><strong>Confidence:</strong> {{ result.cracked_confidence|floatformat:2 }}%</p>
+            {% else %}
+                <p><strong>Label:</strong> Uncracked</p>
+                <p><strong>Confidence:</strong> {{ result.uncracked_confidence|floatformat:2 }}%</p>
             {% endif %}
         </div>
     </div>
@@ -36,7 +32,7 @@
 
 <!-- Buttons centered below frames -->
 <div class="filtered-buttons">
-    <a href="{{ result.image.url }}" download class="btn download-btn">Download</a>
+    <a href="{{ result.result_image.url }}" download class="btn download-btn">Download</a>
 
     <form action="{% url 'delete_image' result.id %}" method="POST">
         {% csrf_token %}

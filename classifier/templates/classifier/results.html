@@ -3,13 +3,16 @@
 {% block title %}Results{% endblock %}
 
 {% block content %}
+{% if not results %}
+    <h2>No results found</h2>
+{% endif %}
 <div class="results-container">
     <div class="results-grid">
         {% for result in results %}
-            {% if result.image %}
+            {% if result.original_image %}
                 <a href="{% url 'filtered_result' result.id %}" class="result-item">
                     <div class="image-box">
-                        <img src="{{ result.image.url }}" alt="Filtered Image">
+                        <img src="{{ result.original_image.url }}" alt="Filtered Image">
                     </div>
                 </a>
             {% endif %}
