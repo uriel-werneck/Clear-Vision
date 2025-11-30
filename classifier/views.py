@@ -8,15 +8,14 @@ def home(request):
         image = request.FILES.get('image')
         if image is not None:
             original_image = image
-            result_image = crack_classification(original_image)
-            description = 'Sample Result'
+            result_image, cracked_confidence, uncracked_confidence = crack_classification(original_image)
             classification = Classification.objects.create(
                 original_image=original_image,
                 result_image=result_image,
-                description=description
+                cracked_confidence=cracked_confidence,
+                uncracked_confidence=uncracked_confidence
             )
             classification.save()
-            context = {'classification': classification}
             return redirect('filtered_result', pk=classification.id)
     return render(request, 'classifier/index.html')
 
