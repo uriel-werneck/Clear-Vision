@@ -3,6 +3,9 @@
 {% block title %}Results{% endblock %}
 
 {% block content %}
+{% if not results %}
+    <h2>No results found</h2>
+{% endif %}
 <div class="results-container">
     <div class="results-grid">
         {% for result in results %}
