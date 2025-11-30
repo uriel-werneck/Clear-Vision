@@ -98,6 +98,7 @@ def crack_classification(django_file: InMemoryUploadedFile) -> str:
     
     # Run prediction
     yolo_result = yolo_model.predict(bgr_image, verbose=False)[0]
+    cracked_conf, uncracked_conf = yolo_result.probs.data.tolist()
     result_img_bgr = yolo_result.plot()
     result_img_rgb = PIL.Image.fromarray(cv.cvtColor(result_img_bgr, cv.COLOR_BGR2RGB))
 
@@ -105,6 +106,6 @@ def crack_classification(django_file: InMemoryUploadedFile) -> str:
     full_path = os.path.join(results_folder, filename)
     result_img_rgb.save(full_path)
 
-    return f'results/{filename}'
+    return f'results/{filename}', cracked_conf, uncracked_conf
 
 
