@@ -8,8 +8,8 @@
 
     <!-- Left frame: Image -->
     <div class="frame image-frame">
-        {% if result.image %}
-            <img src="{{ result.image.url }}" alt="Detected image" class="filtered-image">
+        {% if result.original_image %}
+            <img src="{{ result.original_image.url }}" alt="Detected image" class="filtered-image">
         {% endif %}
     </div>
 
@@ -36,7 +36,7 @@
 
 <!-- Buttons centered below frames -->
 <div class="filtered-buttons">
-    <a href="{{ result.image.url }}" download class="btn download-btn">Download</a>
+    <a href="{{ result.result_image.url }}" download class="btn download-btn">Download</a>
 
     <form action="{% url 'delete_image' result.id %}" method="POST">
         {% csrf_token %}
